@@ -1,0 +1,141 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { HomeFeatured } from '@/islands/HomeFeatured';
+import { buttonVariants } from '@/components/ui/button';
+
+type IconKey = 'shoppingBag' | 'sparkles' | 'trendingUp';
+type IconShape = { type: 'path' | 'polyline'; attrs: Record<string, string> };
+
+const categories: { name: string; path: string; icon: IconKey }[] = [
+  { name: "Men's Fashion", path: "men's clothing", icon: 'shoppingBag' },
+  { name: "Women's Fashion", path: "women's clothing", icon: 'sparkles' },
+  { name: 'Electronics', path: 'electronics', icon: 'trendingUp' },
+  { name: 'Jewelry', path: 'jewelery', icon: 'sparkles' },
+];
+
+const iconDefinitions: Record<IconKey, IconShape[]> = {
+  shoppingBag: [
+    { type: 'path', attrs: { d: 'M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z' } },
+    { type: 'path', attrs: { d: 'M3 6h18' } },
+    { type: 'path', attrs: { d: 'M16 10a4 4 0 0 1-8 0' } },
+  ],
+  sparkles: [
+    {
+      type: 'path',
+      attrs: {
+        d: 'M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z',
+      },
+    },
+    { type: 'path', attrs: { d: 'M20 3v4' } },
+    { type: 'path', attrs: { d: 'M22 5h-4' } },
+    { type: 'path', attrs: { d: 'M4 17v2' } },
+    { type: 'path', attrs: { d: 'M5 18H3' } },
+  ],
+  trendingUp: [
+    { type: 'polyline', attrs: { points: '22 7 13.5 15.5 8.5 10.5 2 17' } },
+    { type: 'polyline', attrs: { points: '16 7 22 7 22 13' } },
+  ],
+};
+
+const heroPrimaryButton = buttonVariants({
+  size: 'lg',
+  variant: 'secondary',
+  className: 'group',
+});
+
+const heroSecondaryButton = buttonVariants({
+  size: 'lg',
+  variant: 'outline',
+  className: 'bg-white/10 hover:bg-white/20 text-white border-white/30',
+});
+---
+<BaseLayout>
+  <div class="min-h-screen">
+    <section class="relative overflow-hidden bg-gradient-hero text-white">
+      <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAxOGMzLjMxNCAwIDYgMi42ODYgNiA2cy0yLjY4NiA2LTYgNi02LTIuNjg2LTYtNiAyLjY4Ni02IDYtNnptMCAxMmMzLjMxNCAwIDYgMi42ODYgNiA2cy0yLjY4NiA2LTYgNi02LTIuNjg2LTYtNiAyLjY4Ni02IDYtNnoiIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iLjA1Ii8+PC9nPjwvc3ZnPg==')] opacity-20"></div>
+      <div class="container mx-auto px-4 py-20 sm:py-32 relative">
+        <div class="max-w-3xl animate-fade-in">
+          <h1 class="text-4xl sm:text-6xl font-bold mb-6">
+            Discover Your Style
+          </h1>
+          <p class="text-lg sm:text-xl text-white/90 mb-8">
+            Explore our curated collection of premium products with unbeatable prices
+          </p>
+          <div class="flex flex-wrap gap-4">
+            <a href="/products" class={heroPrimaryButton}>
+              <span>Shop Now</span>
+              <svg
+                class="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                viewBox="0 0 24 24"
+              >
+                <path d="M5 12h14"></path>
+                <path d="m12 5 7 7-7 7"></path>
+              </svg>
+            </a>
+            <a href="#deals" class={heroSecondaryButton}>
+              View Deals
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-16 bg-secondary/30">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold mb-8 text-center">Shop by Category</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {categories.map((category, index) => (
+            <a
+              href={`/products?category=${encodeURIComponent(category.path)}`}
+              class="group cursor-pointer animate-scale-in"
+              style={`animation-delay: ${index * 0.1}s`}
+            >
+              <div class="bg-card rounded-lg p-6 text-center transition-all hover:shadow-hover border">
+                <svg
+                  class="h-12 w-12 mx-auto mb-4 text-primary"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  viewBox="0 0 24 24"
+                >
+                  {iconDefinitions[category.icon].map((shape) => {
+                    if (shape.type === 'path') {
+                      return <path {...shape.attrs} />;
+                    }
+                    return <polyline {...shape.attrs} />;
+                  })}
+                </svg>
+                <h3 class="font-semibold">{category.name}</h3>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <HomeFeatured client:load />
+
+    <section id="deals" class="py-16 bg-gradient-to-br from-accent to-secondary">
+      <div class="container mx-auto px-4 text-center">
+        <div class="max-w-2xl mx-auto">
+          <h2 class="text-3xl font-bold mb-4 text-accent-foreground">
+            Special Offer!
+          </h2>
+          <p class="text-lg mb-6 text-accent-foreground/80">
+            Sign up today and get exclusive access to member-only deals and promotions
+          </p>
+          <a href="/auth" class={buttonVariants({ size: 'lg' })}>
+            Get Started
+          </a>
+        </div>
+      </div>
+    </section>
+  </div>
+</BaseLayout>

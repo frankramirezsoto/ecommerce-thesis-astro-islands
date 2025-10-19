@@ -1,0 +1,29 @@
+---
+import '../index.css';
+import { Navbar } from '@/components/Navbar';
+import { CartDrawer } from '@/components/CartDrawer';
+import { Toasts } from '@/islands/Toasts';
+
+interface Props {
+  title?: string;
+}
+
+const { title } = Astro.props as Props;
+const pageTitle = title ? `${title} | ShopHub` : 'ShopHub | Premium shopping experience';
+---
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+  </head>
+  <body class="min-h-screen bg-background text-foreground">
+    <Navbar client:load />
+    <CartDrawer client:load />
+    <main class="pt-0">
+      <slot />
+    </main>
+    <Toasts client:load />
+  </body>
+</html>
