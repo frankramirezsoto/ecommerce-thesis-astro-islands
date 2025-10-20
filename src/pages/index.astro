@@ -53,8 +53,8 @@ const heroSecondaryButton = buttonVariants({
   <div class="min-h-screen">
     <section class="relative overflow-hidden bg-gradient-hero text-white">
       <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAxOGMzLjMxNCAwIDYgMi42ODYgNiA2cy0yLjY4NiA2LTYgNi02LTIuNjg2LTYtNiAyLjY4Ni02IDYtNnptMCAxMmMzLjMxNCAwIDYgMi42ODYgNiA2cy0yLjY4NiA2LTYgNi02LTIuNjg2LTYtNiAyLjY4Ni02IDYtNnoiIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iLjA1Ii8+PC9nPjwvc3ZnPg==')] opacity-20"></div>
-      <div class="container mx-auto px-4 py-20 sm:py-32 relative">
-        <div class="max-w-3xl animate-fade-in">
+      <div class="container mx-auto flex flex-col lg:flex-row justify-center">
+        <div class="animate-fade-in me-0 lg: me-20 mt-32 lg:my-20">
           <h1 class="text-4xl sm:text-6xl font-bold mb-6">
             Discover Your Style
           </h1>
@@ -77,11 +77,15 @@ const heroSecondaryButton = buttonVariants({
                 <path d="m12 5 7 7-7 7"></path>
               </svg>
             </a>
-            <a href="#deals" class={heroSecondaryButton}>
-              View Deals
-            </a>
           </div>
         </div>
+        <div class='flex justify-end animate-float-in'>
+            <img
+              src="hero.png"
+              alt="Hero Image"
+              class="max-w-sm opacity-90 animate-float-in"
+            />
+          </div>
       </div>
     </section>
 
