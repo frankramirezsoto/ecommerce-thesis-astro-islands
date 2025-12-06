@@ -1,73 +1,181 @@
-# Welcome to your Lovable project
+# ShopHub - E-commerce con Astro Islands Architecture
 
-## Project info
+Implementación de un e-commerce funcional utilizando **Astro** con **Islands Architecture** como parte de una investigación comparativa de métodos de renderizado web modernos.
 
-**URL**: https://lovable.dev/projects/5b9b8b4a-8fcd-433d-bdff-907d6f814ada
+## 📋 Sobre el Proyecto
 
-## How can I edit this code?
+Este proyecto forma parte de una tesis de investigación titulada **"Análisis comparativo de los métodos de renderizado web PRR, Islands y Resumability para la elaboración de un e-commerce en 2025"**.
 
-There are several ways of editing your application.
+ShopHub es una tienda en línea completa que implementa el patrón de **Islands Architecture** de Astro, enfocándose en optimizar el rendimiento mediante hidratación selectiva de componentes interactivos.
 
-**Use Lovable**
+## 🎯 Objetivo de la Investigación
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/5b9b8b4a-8fcd-433d-bdff-907d6f814ada) and start prompting.
+Evaluar el rendimiento de tres métodos modernos de renderizado web:
+- **Partial Pre-rendering (PPR)** - Next.js
+- **Islands Architecture** - Astro ← *Este proyecto*
+- **Resumability** - Qwik
 
-Changes made via Lovable will be committed automatically to this repo.
+### Métricas Evaluadas
+- **LCP** (Largest Contentful Paint)
+- **INP** (Interaction to Next Paint)
+- **CLS** (Cumulative Layout Shift)
+- **SI** (Speed Index)
+- **TBT** (Total Blocking Time)
 
-**Use your preferred IDE**
+## 🏗️ Arquitectura
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected
-in Lovable.
+### Islands Architecture
+Este proyecto utiliza el patrón de **Islands Architecture** de Astro, que permite:
+- HTML estático por defecto
+- Hidratación selectiva de componentes interactivos ("islas")
+- Carga paralela de componentes sin bloqueo mutuo
+- Control granular de cuándo hidratar componentes
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### Directivas de Cliente Utilizadas
+```astro
+<!-- Hidratar cuando la página carga -->
+<Component client:load />
 
-Follow these steps:
+<!-- Hidratar cuando el navegador está inactivo -->
+<Component client:idle />
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm install
-
-# Step 4: Start the Astro development server with auto-reloading and an instant preview.
-npm run dev
+<!-- Hidratar cuando el componente es visible -->
+<Component client:visible />
 ```
 
-**Edit a file directly in GitHub**
+## 🚀 Características
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+### Funcionalidades Principales
+- ✅ Catálogo de productos con filtrado y búsqueda
+- ✅ Páginas de detalle de producto
+- ✅ Carrito de compras interactivo
+- ✅ Proceso de checkout completo
+- ✅ Sistema de autenticación (demo)
+- ✅ Historial de órdenes
+- ✅ Diseño responsive (móvil y escritorio)
 
-**Use GitHub Codespaces**
+### Páginas Implementadas
+1. **Home** (`/`) - Página principal con productos destacados
+2. **Productos** (`/products`) - Catálogo completo con filtros
+3. **Detalle** (`/product/[id]`) - Información detallada del producto
+4. **Checkout** (`/checkout`) - Proceso de compra
+5. **Órdenes** (`/orders`) - Historial de compras
+6. **Auth** (`/auth`) - Login/Registro
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## 🛠️ Stack Tecnológico
 
-## What technologies are used for this project?
+- **Framework**: Astro 4.15.10
+- **UI Library**: React 18.3.1
+- **Styling**: Tailwind CSS 3.4.17
+- **Components**: shadcn/ui
+- **API**: Fake Store API
+- **Storage**: LocalStorage (cliente)
+- **TypeScript**: 5.8.3
 
-This project is built with:
+## 📦 Instalación
+```bash
+# Clonar el repositorio
+git clone https://github.com/frankramirezsoto/ecommerce-thesis-astro-islands.git
 
-- Astro (Islands architecture with React components)
-- TypeScript
-- shadcn-ui
-- Tailwind CSS
+# Navegar al directorio
+cd ecommerce-thesis-astro-islands
 
-## How can I deploy this project?
+# Instalar dependencias
+npm install
 
-Simply open [Lovable](https://lovable.dev/projects/5b9b8b4a-8fcd-433d-bdff-907d6f814ada) and click on Share -> Publish.
+# Ejecutar en desarrollo
+npm run dev
 
-## Can I connect a custom domain to my Lovable project?
+# Construir para producción
+npm run build
 
-Yes, you can!
+# Vista previa de producción
+npm run preview
+```
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+## 🌐 Deploy
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+El proyecto está desplegado en Vercel:
+- **URL**: https://ecommerce-thesis-astro-islands.vercel.app/
+
+## 📁 Estructura del Proyecto
+```
+src/
+├── components/          # Componentes React estáticos
+│   ├── ui/             # Componentes shadcn/ui
+│   ├── CartDrawer.tsx  # Drawer del carrito
+│   ├── Navbar.tsx      # Navegación principal
+│   └── ProductCard.tsx # Tarjeta de producto
+├── islands/            # Componentes interactivos (Islands)
+│   ├── AuthIsland.tsx
+│   ├── CheckoutIsland.tsx
+│   ├── HomeFeatured.tsx
+│   ├── OrdersIsland.tsx
+│   ├── ProductDetailIsland.tsx
+│   ├── ProductsIsland.tsx
+│   └── Toasts.tsx
+├── layouts/            # Layouts de Astro
+│   └── BaseLayout.astro
+├── pages/             # Páginas (routing)
+│   ├── index.astro
+│   ├── products.astro
+│   ├── checkout.astro
+│   ├── orders.astro
+│   ├── auth.astro
+│   └── product/[id].astro
+├── lib/               # Utilidades y lógica
+│   ├── api.ts         # Cliente API
+│   ├── cart.ts        # Gestión del carrito
+│   └── storage.ts     # LocalStorage wrapper
+└── types/             # Definiciones TypeScript
+```
+
+## 🔑 Características de Islands Architecture
+
+### Ventajas Implementadas
+1. **HTML Estático por Defecto**: La mayoría del contenido se sirve como HTML estático
+2. **Hidratación Selectiva**: Solo los componentes interactivos se hidratan
+3. **Carga Paralela**: Las islas se cargan de forma independiente
+4. **Optimización de JavaScript**: Reduce el JS enviado al cliente
+
+### Componentes Island
+- `HomeFeatured`: Productos destacados con interactividad
+- `ProductsIsland`: Catálogo con filtros y búsqueda
+- `ProductDetailIsland`: Detalles y acciones del producto
+- `CheckoutIsland`: Formulario y proceso de compra
+- `OrdersIsland`: Historial de órdenes
+- `AuthIsland`: Autenticación de usuario
+
+## 📊 Resultados de Rendimiento
+
+Este proyecto fue evaluado junto con implementaciones equivalentes en Next.js (PPR) y Qwik (Resumability). Los resultados completos se encuentran en el documento de investigación.
+
+### Hallazgos Principales
+- Excelente rendimiento en TBT (Total Blocking Time)
+- Buena estabilidad en métricas Core Web Vitals
+- Rendimiento consistente entre móvil y escritorio
+
+## 🎓 Contexto Académico
+
+**Universidad**: Universidad Latinoamericana de Ciencia y Tecnología (ULACIT)  
+**Programa**: Bachillerato en Ingeniería Informática  
+**Autor**: Franklin Josué Ramírez Soto  
+**Año**: 2025
+
+## 📄 Licencia
+
+Este proyecto fue desarrollado con fines académicos como parte de un trabajo de investigación.
+
+## 🔗 Enlaces Relacionados
+
+- **Repositorio Next.js (PPR)**: https://github.com/frankramirezsoto/ecommerce-thesis-nextjs-ppr
+- **Repositorio Qwik (Resumability)**: https://github.com/frankramirezsoto/ecommerce-thesis-qwik-resumable
+- **Demo en vivo**: https://ecommerce-thesis-astro-islands.vercel.app/
+
+## 📞 Contacto
+
+Para preguntas sobre la implementación o la investigación, contactar al autor a través del repositorio de GitHub.
+
+---
+
+**Nota**: Este proyecto utiliza Fake Store API para datos de demostración. La autenticación y las órdenes se almacenan localmente en el navegador.
